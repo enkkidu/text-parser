@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Nordea.Models.Utils;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Nordea.Utils;
 using Nordea.Utils.Interfaces;
 
@@ -17,7 +10,7 @@ namespace Nordea.Tests.Utils
     {
 
         [TestMethod]
-        public void TextDetailsToXmlFromNormalSentence()
+        public void Should_Return_Xml_When_Get_Normal_Sentence()
         {
             ITextUtil textUtil = new TextUtil();
             var input = "Mary had a little lamb.";
@@ -30,7 +23,7 @@ namespace Nordea.Tests.Utils
         }
 
         [TestMethod]
-        public void TextDetailsToCSVFromNormalSentence()
+        public void Should_Return_CSV_When_Get_Normal_Sentence()
         {
             ITextUtil textUtil = new TextUtil();
             var input = "Mary had a little lamb.";
@@ -43,7 +36,7 @@ namespace Nordea.Tests.Utils
         }
 
         [TestMethod]
-        public void TextDetailsToXMLFromWrongSentence()
+        public void Should_Return_Empty_CSV_When_Get_Wrong_Sentence()
         {
             ITextUtil textUtil = new TextUtil();
             var input = "Mary had a little lamb";
@@ -56,7 +49,7 @@ namespace Nordea.Tests.Utils
         }
 
         [TestMethod]
-        public void TextDetailsToCSVFromWrongSentence()
+        public void Should_Return_Empty_When_Get_Wrong_Sentence()
         {
             ITextUtil textUtil = new TextUtil();
             var input = "Mary had a little lamb";
@@ -68,7 +61,7 @@ namespace Nordea.Tests.Utils
         }
 
         [TestMethod]
-        public void TextDetailsToCSVFromSpecialCharactersInSentence()
+        public void Should_Return_CSV_When_Get_Special_Characters_In_Sentence()
         {
             ITextUtil textUtil = new TextUtil();
             var input = "Mary's lamb, black-blue.";
@@ -80,7 +73,7 @@ namespace Nordea.Tests.Utils
         }
 
         [TestMethod]
-        public void TextDetailsToCSVFromManyWhiteSpacesInSentence()
+        public void Should_Return_CSV_When_Get_White_Spaces_In_Sentence()
         {
             ITextUtil textUtil = new TextUtil();
             var input =

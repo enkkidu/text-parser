@@ -7,7 +7,8 @@ using System.Xml;
 using Nordea.Models.Utils;
 using Nordea.Utils.Interfaces;
 
-namespace Nordea.Utils {
+namespace Nordea.Utils
+{
     public class TextUtil : ITextUtil
     {
         private const string SentenceRegexPattern = @"[a-zA-Z\-,'\s]+[.?!]";
@@ -20,13 +21,17 @@ namespace Nordea.Utils {
             var settings = new XmlWriterSettings();
             settings.Indent = true;
             settings.IndentChars = "    ";
-            using (var stringWriter = new StringWriter()) {
-                using (var writer = XmlWriter.Create(stringWriter, settings)) {
+            using (var stringWriter = new StringWriter())
+            {
+                using (var writer = XmlWriter.Create(stringWriter, settings))
+                {
                     writer.WriteProcessingInstruction("xml", "\"version=1.0\" encoding=\"UTF-8\" standalone=\"yes\"");
                     writer.WriteStartElement("text");
-                    foreach (var sentence in textDetails.Sentences) {
+                    foreach (var sentence in textDetails.Sentences)
+                    {
                         writer.WriteStartElement("sentence");
-                        foreach (var word in sentence.Words) {
+                        foreach (var word in sentence.Words)
+                        {
                             writer.WriteStartElement("word");
                             writer.WriteValue(word);
                             writer.WriteEndElement();
@@ -77,9 +82,11 @@ namespace Nordea.Utils {
 
             result.Sentences = new List<Sentence>();
             List<string> words;
-            foreach (Match sentenceMatch in sentenceRegex.Matches(text)) {
+            foreach (Match sentenceMatch in sentenceRegex.Matches(text))
+            {
                 words = new List<string>();
-                foreach (Match wordMatch in wordRegex.Matches(sentenceMatch.Value)) {
+                foreach (Match wordMatch in wordRegex.Matches(sentenceMatch.Value))
+                {
                     words.Add(wordMatch.Value);
                 }
                 words.Sort();

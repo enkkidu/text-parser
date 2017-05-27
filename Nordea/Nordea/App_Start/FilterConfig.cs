@@ -1,9 +1,12 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace Nordea {
-    public class FilterConfig {
-        public static void RegisterGlobalFilters(GlobalFilterCollection filters) {
+namespace Nordea
+{
+    public class FilterConfig
+    {
+        public static void RegisterGlobalFilters(GlobalFilterCollection filters)
+        {
             filters.Add(new HandleErrorAttribute());
         }
     }

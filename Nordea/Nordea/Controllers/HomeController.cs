@@ -1,54 +1,41 @@
-﻿using System.Linq;
-using System.Web.Mvc;
-using Nordea.Models.Enum;
+﻿using System.Web.Mvc;
 using Nordea.Models.ViewModels;
-using Nordea.Utils;
-using Nordea.Utils.Interfaces;
+using System;
+using Nordea.Service.Interfaces;
 
-namespace Nordea.Controllers {
-    public class HomeController : Controller {
-        public ActionResult Index() {
+namespace Nordea.Controllers
+{
+    public class HomeController : Controller
+    {
+        private ITextService textService;
+
+        public HomeController(ITextService textService)
+        {
+            this.textService = textService;
+        }
+
+        public ActionResult Index()
+        {
             return View();
         }
 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(IndexViewModel model) {
-            if (ModelState.IsValid) {
-                ITextUtil textUtil = new TextUtil();
-                var textDetails = textUtil.SeparateTextDetails(model.Text);
-                if (!textDetails.Sentences.Any())
+        public ActionResult Index(IndexViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
                 {
-                    ModelState.AddModelError("Error", "No sentence found. Remember the sentence needs to end with . ! ?");
+                    ViewBag.Result = textService.Parse(model.Text, model.ResultType);
                 }
-                
-                switch (model.ResultType)
+                catch(Exception ex)
                 {
-                    case  ResultType.CSV:
-                        ViewBag.Result = textUtil.TextDetailsToCSV(textDetails);
-
-                        break;
-                    case ResultType.XML:
-                        ViewBag.Result = textUtil.TextDetailsToXml(textDetails);
-                        break;
-                    default:
-                        break;
+                    ModelState.AddModelError("Error", ex.Message);
                 }
             }
             return View(model);
-        }
-
-        public ActionResult About() {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact() {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
         }
     }
 }
